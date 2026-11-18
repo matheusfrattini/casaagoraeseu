@@ -1,0 +1,24 @@
+/* Tokens tirados da logo: papel, marrom do letreiro e dourado do anel.
+   Paleta fixa (não muda com o tema do sistema). */
+:root{
+  --paper:#F7F5F0;        /* fundo da logo */
+  --paper-2:#EFEAE1;      /* seções alternadas */
+  --paper-3:#E5DDCF;
+  --brown:#5C4838;        /* letreiro da logo: texto principal */
+  --brown-soft:#7A6858;   /* texto secundário */
+  --brown-deep:#3E3128;   /* blocos escuros */
+  --brown-deep-2:#4B3C31;
+  --gold:#BEA883;         /* anel da logo: fios e detalhes, nunca texto pequeno no papel */
+  --gold-text:#8A7350;    /* dourado legível sobre o papel */
+  --on-dark:#F7F5F0;
+  --on-dark-soft:#D9CFC0;
+  --line:rgba(190,168,131,.55);
+  --line-dark:rgba(247,245,240,.18);
+  --ok:#5E8A4E;
+
+  --display:"Lora", Georgia, "Times New Roman", serif;
+  --body:"Jost", "Century Gothic", system-ui, sans-serif;
+
+  --arch:999px 999px 0 0;
+  color-scheme:light;
+}

@@ -1,0 +1,123 @@
+/* Botões
+   .btn         pílula com efeito blob: ao passar o mouse, gotas sobem e preenchem o botão (gotas criadas por buttons.js)
+                variantes: .btn-solid (principal), .btn-soft (tonal), .btn (contorno), .btn-light (sobre fundo escuro)
+                ícone: <span class="btn-ic"> no fim do botão, ou no começo com .btn-lead
+   .icon-btn    botão redondo só de ícone, com dica em data-tip; variantes .is-solid e .is-soft */
+.btn{
+  --btn-bg:transparent; --btn-fg:var(--brown); --btn-bd:var(--line); --btn-ic-bg:var(--brown); --btn-ic-fg:var(--paper);
+  --btn-blob:var(--brown); --btn-fg-hover:var(--paper); --btn-bd-hover:var(--brown);
+  --btn-shadow:0 0 0 rgba(0,0,0,0);
+  position:relative; isolation:isolate; overflow:hidden;
+  display:inline-flex; align-items:center; justify-content:center; gap:12px; min-height:50px;
+  padding:8px 26px; border-radius:999px; border:1px solid var(--btn-bd); background:var(--btn-bg); color:var(--btn-fg);
+  font-family:var(--body); font-size:.8rem; font-weight:500; letter-spacing:.16em; text-transform:uppercase; line-height:1;
+  text-decoration:none; cursor:pointer; white-space:nowrap; box-shadow:var(--btn-shadow);
+  -webkit-tap-highlight-color:transparent;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, border-color .3s ease, color .35s ease;
+}
+.btn > svg{width:18px; height:18px; flex:none}
+.btn:hover{transform:translateY(-2px); color:var(--btn-fg-hover); border-color:var(--btn-bd-hover)}
+.btn:active{transform:translateY(0) scale(.97); transition-duration:.08s}
+.btn:focus-visible{outline:2px solid var(--gold-text); outline-offset:3px}
+
+/* Gotas: ficam abaixo do texto e sobem no hover; o filtro #goo (de buttons.js) as funde num líquido */
+.btn .blob-wrap{position:absolute; inset:-1px; z-index:-1; overflow:hidden; border-radius:inherit; pointer-events:none}
+.btn .blobs{position:relative; display:block; width:100%; height:100%; filter:url(#goo)}
+.btn .blob{
+  position:absolute; display:block; top:2px; width:25%; height:100%; border-radius:50%; background:var(--btn-blob);
+  transform:translate3d(0, 150%, 0) scale(1.7);
+  transition:transform .5s cubic-bezier(.3,.7,.3,1);
+}
+.btn .blob:nth-child(1){left:0%}
+.btn .blob:nth-child(2){left:30%; transition-delay:.06s}
+.btn .blob:nth-child(3){left:60%; transition-delay:.12s}
+.btn .blob:nth-child(4){left:90%; transition-delay:.18s}
+.btn:hover .blob, .btn:focus-visible .blob{transform:translate3d(0, 0, 0) scale(1.7)}
+/* Sem JS (sem gotas), o hover pinta o fundo direto */
+html:not(.js) .btn:hover{background:var(--btn-blob)}
+
+/* Ícone em círculo */
+.btn-ic{
+  width:36px; height:36px; border-radius:50%; flex:none; display:grid; place-items:center;
+  background:var(--btn-ic-bg); color:var(--btn-ic-fg);
+  transition:transform .3s cubic-bezier(.2,.8,.2,1), background .35s ease, color .35s ease;
+}
+.btn-ic svg{width:17px; height:17px}
+.btn:has(.btn-ic){padding-right:6px; gap:14px}
+.btn:hover .btn-ic{transform:translateX(3px)}
+.btn:hover .btn-ic.ext{transform:translate(2px, -2px)}
+.btn-lead .btn-ic{order:-1}
+.btn-lead:has(.btn-ic){padding-right:24px; padding-left:6px}
+.btn-lead:hover .btn-ic{transform:rotate(-8deg) scale(1.06)}
+
+/* Principal: marrom, enche de dourado */
+.btn-solid{
+  --btn-bg:var(--brown); --btn-fg:var(--paper); --btn-bd:var(--brown); --btn-ic-bg:var(--paper); --btn-ic-fg:var(--brown);
+  --btn-blob:var(--gold); --btn-fg-hover:var(--brown-deep); --btn-bd-hover:var(--gold);
+  --btn-shadow:0 10px 24px -12px rgba(62,49,40,.7), inset 0 1px 0 rgba(255,255,255,.12);
+}
+.btn-solid:hover{--btn-shadow:0 16px 30px -12px rgba(62,49,40,.6)}
+.btn-solid:hover .btn-ic{background:var(--brown-deep); color:var(--paper)}
+
+/* Tonal: bege, enche de marrom */
+.btn-soft{--btn-bg:var(--paper-3); --btn-bd:transparent; --btn-ic-bg:var(--paper); --btn-ic-fg:var(--brown); --btn-bd-hover:var(--brown)}
+.btn-soft:hover{--btn-shadow:0 10px 22px -14px rgba(62,49,40,.5)}
+
+/* Contorno: enche de marrom (o padrão de .btn) */
+
+/* Sobre fundo escuro */
+.on-dark .btn{--btn-fg:var(--on-dark); --btn-bd:var(--line-dark); --btn-ic-bg:var(--paper); --btn-ic-fg:var(--brown-deep);
+  --btn-blob:var(--paper); --btn-fg-hover:var(--brown-deep); --btn-bd-hover:var(--paper)}
+.on-dark .btn:hover .btn-ic{background:var(--brown-deep); color:var(--paper)}
+.btn-light, .on-dark .btn-light{
+  --btn-bg:var(--paper); --btn-fg:var(--brown-deep); --btn-bd:var(--paper); --btn-ic-bg:var(--brown-deep); --btn-ic-fg:var(--paper);
+  --btn-blob:var(--gold); --btn-fg-hover:var(--brown-deep); --btn-bd-hover:var(--gold);
+  --btn-shadow:0 12px 28px -14px rgba(0,0,0,.6);
+}
+
+/* Icon buttons */
+.icon-btn{
+  --ib-bg:transparent; --ib-fg:var(--brown); --ib-bd:var(--line); --ib-bg-hover:var(--brown); --ib-fg-hover:var(--paper);
+  position:relative; width:48px; height:48px; flex:none; border-radius:50%; display:inline-grid; place-items:center;
+  background:var(--ib-bg); color:var(--ib-fg); border:1px solid var(--ib-bd); cursor:pointer; text-decoration:none; padding:0;
+  -webkit-tap-highlight-color:transparent;
+  transition:background .25s ease, color .25s ease, border-color .25s ease, transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease;
+}
+.icon-btn svg{width:20px; height:20px; transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.icon-btn:hover{background:var(--ib-bg-hover); color:var(--ib-fg-hover); border-color:var(--ib-bg-hover); transform:translateY(-2px); box-shadow:0 10px 20px -12px rgba(62,49,40,.7)}
+.icon-btn:hover svg{transform:scale(1.1) rotate(-6deg)}
+.icon-btn:active{transform:scale(.92); transition-duration:.08s}
+.icon-btn:focus-visible{outline:2px solid var(--gold-text); outline-offset:3px}
+.icon-btn.is-solid{--ib-bg:var(--brown); --ib-fg:var(--paper); --ib-bd:var(--brown); --ib-bg-hover:var(--gold); --ib-fg-hover:var(--brown-deep)}
+.icon-btn.is-soft{--ib-bg:var(--paper-3); --ib-bd:transparent}
+.icon-btn.sm{width:40px; height:40px}
+.icon-btn.sm svg{width:18px; height:18px}
+.on-dark .icon-btn{--ib-fg:var(--on-dark); --ib-bd:var(--line-dark); --ib-bg-hover:var(--paper); --ib-fg-hover:var(--brown-deep)}
+
+/* Estado "copiado" */
+.icon-btn .i-check{display:none}
+.icon-btn.done{--ib-bg:var(--brown); --ib-fg:var(--paper); --ib-bd:var(--brown)}
+.icon-btn.done .i-copy{display:none}
+.icon-btn.done .i-check{display:block}
+
+/* Dica (tooltip) a partir de data-tip */
+.icon-btn[data-tip]::after{
+  content:attr(data-tip); position:absolute; left:50%; bottom:calc(100% + 10px); transform:translate(-50%, 4px);
+  padding:6px 10px; border-radius:8px; background:var(--brown-deep); color:var(--paper); white-space:nowrap; pointer-events:none;
+  font-family:var(--body); font-size:.68rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; line-height:1;
+  opacity:0; transition:opacity .2s ease, transform .2s ease;
+}
+.icon-btn[data-tip]:hover::after, .icon-btn[data-tip]:focus-visible::after, .icon-btn.done[data-tip]::after{opacity:1; transform:translate(-50%, 0)}
+.on-dark .icon-btn[data-tip]::after{background:var(--paper); color:var(--brown-deep)}
+.icon-row{display:flex; flex-wrap:wrap; gap:10px; align-items:center}
+
+.actions{display:flex; flex-wrap:wrap; gap:12px}
+.actions.center{justify-content:center}
+
+@media (hover:none){
+  .icon-btn[data-tip]:not(.done)::after{display:none}
+}
+@media (prefers-reduced-motion: reduce){
+  .btn:hover, .btn:hover .btn-ic, .icon-btn:hover, .icon-btn:hover svg{transform:none}
+  .btn .blob{transition-duration:.01s; transition-delay:0s!important}
+}
